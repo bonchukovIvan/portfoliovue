@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, :before, :after {
+    box-sizing: border-box;
+}
+#app {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #f7f7f7;
+}
+.container {
+    max-width: 1920px;
+    padding: 0 50px;
+    margin: auto;
+}
