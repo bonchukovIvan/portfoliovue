@@ -22,6 +22,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/skills', [SkillsController::class, 'index'])->name('skills.index');
     Route::post('/dashboard/skills', [SkillsController::class, 'create'])->name('skills.create');
+    Route::put('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
     Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
 });
 
