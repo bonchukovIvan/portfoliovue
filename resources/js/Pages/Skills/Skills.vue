@@ -1,9 +1,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { reactive } from "vue";
 
 const form = useForm({
+    id: null,
+    title: null,
+    image: null,
+});
+const editForm = useForm({
     id: null,
     title: null,
     image: null,
@@ -17,18 +21,39 @@ function submit() {
     }
   });
 };
+function submitEdit() {
+    const formData = new FormData();
+    formData.append('title', editForm.title);
+
+    if (editForm.image instanceof File) {
+        formData.append('image', editForm.image);
+    }
+
+    editForm.post(`skills/${editForm.id}`, {
+        _method: 'patch',
+        data: formData,
+        onSuccess: () => {
+            editForm.reset('title');
+            editForm.reset('image');
+        }
+    });
+};
 const deleteSkill = (id) => {
     form.delete(`skills/${id}`);
 };
-const editSkill = (id) => {
-    form.put(`skills/${id}`);
+const editSkill = (id, skills) => {
+    const skill = skills.find(item => item.id === id);
+    editForm.id = skill.id;
+    editForm.title = skill.title;
+    editForm.image = skill.image;
 };
-defineProps({
+const props = defineProps({
     skills: {
         type: Array,
         default: () => [],
-    },
+    }
 });
+const app_url = import.meta.env.VITE_APP_URL;
 </script>
 
 <template>
@@ -56,10 +81,10 @@ defineProps({
                     <tr v-for="skill in skills" :key="skill.id">
                         <td>{{ skill.title }}</td>
                         <td>
-                            <img v-if="skill.image_path" :src="skill.image_path" :alt="skill.title" style="width: 100px; height: auto;">
+                            <img v-if="skill.image" :src="app_url+skill.image" :alt="skill.title" style="width: 100px; height: auto;">
                         </td>
                         <td>
-                            <button @click="editSkill(skill.id)" class="pf-edit">Edit</button>
+                            <button @click="editSkill(skill.id, skills)" class="pf-edit">Edit</button>
                         </td>
                         <td>
                             <button @click="deleteSkill(skill.id)" class="pf-delete">Delete</button>
@@ -67,9 +92,19 @@ defineProps({
                     </tr>
                 </tbody>
             </div>
-
+            <div class="pf-create">
+                <form @submit.prevent="submitEdit" class="pf-create__form">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" v-model="editForm.title" />
+                    <label for="Image">Image</label>
+                    <input type="file" @input="editForm.image = $event.target.files[0]" />
+                    <progress v-if="editForm.progress" :value="editForm.progress.percentage" max="100">
+                        {{ editForm.progress.percentage }}%
+                    </progress>
+                    <button type="submit">Update</button>
+                </form>
+            </div>
         </div>
-
     </AuthenticatedLayout>
 </template>
 
@@ -122,6 +157,9 @@ defineProps({
                     background-color: #F0BF6C;
                 }
                 button.pf-delete {
+                    letter-spacing: 1px;
+                    color: #fff;
+                    font-weight: bold;
                     background-color: #F74949;
                 }
                 td {

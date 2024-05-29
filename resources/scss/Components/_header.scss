@@ -12,9 +12,9 @@
         align-items: center;
         h2 {
             font-size: 24px;
-            font-weight: bold;  
+            font-weight: bold;
         }
-    } 
+    }
     &__menu {
         display: flex;
         align-items: center;
@@ -87,8 +87,8 @@
         gap: 50px;
     }
     &__cards {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
         gap: 50px;
         &-group {
             display: flex;
@@ -98,24 +98,33 @@
     }
     &__card {
         &-body {
+            transition: 0.3s all;
+            height: 100%;
             padding: 50px;
             background-color: #3D3E42;
             border-radius: 25px;
             box-shadow: rgba(36, 38, 39, 0.2) 0px 8px 24px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             gap: 25px;
+            font-size: 24px;
             &:hover {
                 background-color: #F0BF6C;
                 cursor: pointer;
+                color: #f7f7f7;
+                font-weight: bold;
             }
         }
         &-img {
             width: 150px;
+            height: 150px;
         }
         &-img img {
             min-width: 100%;
             min-height: 100%;
+            object-fit: cover;
         }
         &-name {
             text-align: center;
@@ -163,9 +172,9 @@ button {
         position: absolute;
         z-index: 99;
         top: 180px;
-        left: 0; 
-        right: 0; 
-        margin: auto; 
+        left: 0;
+        right: 0;
+        margin: auto;
         width: 300px;
     }
     &__title {

@@ -13,12 +13,7 @@ class SkillsController extends Controller
 {
     public function index(): Response
     {
-        $baseUrl = config('app.url');
-        $skills = Skills::all()->map(function ($skill) use ($baseUrl) {
-            $skill->image_path = $skill->image ? $baseUrl . $skill->image : null;
-            return $skill;
-        });;
-
+        $skills = Skills::all();
         return Inertia::render('Skills/Skills', [
             'skills' => $skills
         ]);
@@ -39,17 +34,30 @@ class SkillsController extends Controller
         return redirect()->route('skills.index');
     }
 
-    public function edit(Request $request): Response
+    public function edit($id, Request $request)
     {
-        return true;
+        $skill = Skills::findOrFail($id);
+        if(request()->hasFile('image')) {
+            if ($skill->image) {
+                Storage::delete(str_replace('/public/storage/', 'public/', $skill->image));
+            }
+            $image = Hash::make($skill->id.request()->file('image')->getClientOriginalName());
+            $image = str_replace('/', '',$image).'.'.request()->file('image')->extension();
+            request()->file('image')->storeAs('public', $image);
+            $skill->update(['image' => '/public/storage/'.$image]);
+        }
+        $skill->update([
+            'title' => $request['title']
+        ]);
+        return redirect()->route('skills.index');
     }
 
-    public function show(): Response
+    public function show($id): Response
     {
-        $skills = Skills::all();
-        return Inertia::render('Skills/Skills', [
-            'skills' => $skills
-        ]);
+        $baseUrl = config('app.url');
+        $skill = Skills::findOrFail($id);
+        return $skill;
+
     }
 
     public function destroy($id)

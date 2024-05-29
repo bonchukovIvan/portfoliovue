@@ -2,6 +2,14 @@
 import ApplicationHeader from '@/Components/ApplicationHeader.vue';
 import ApplicationFooter from '@/Components/ApplicationFooter.vue';
 
+const app_url = import.meta.env.VITE_APP_URL;
+
+defineProps({
+    skills: {
+        type: Array,
+        default: () => [],
+    },
+});
 </script>
 
 <template>
@@ -33,71 +41,16 @@ import ApplicationFooter from '@/Components/ApplicationFooter.vue';
         </div>
 
         <div class="pf-skills__cards">
-            <div class="pf-skills__cards-group">
-              <div class="pf-skills__card">
+            <div class="pf-skills__card"  v-for="skill in skills" :key="skill.id">
                 <div class="pf-skills__card-body">
                   <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
+                    <img v-if="skill.image" :src="app_url+skill.image" :alt="skill.title">
                   </div>
                   <div class="pf-skills__card-name">
-                    <h5>PHP</h5>
+                    <h5>{{ skill.title }}</h5>
                   </div>
                 </div>
-              </div>
-              <div class="pf-skills__card">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
-                  </div>
-                  <div class="pf-skills__card-name">
-                    <h5>PHP</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="pf-skills__card">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
-                  </div>
-                  <div class="pf-skills__card-name">
-                    <h5>PHP</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="pf-skills__card">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
-                  </div>
-                  <div class="pf-skills__card-name">
-                    <h5>PHP</h5>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="pf-skills__cards-group">
-
-              <div class="pf-skills__card">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
-                  </div>
-                <div class="pf-skills__card-name">
-                  <h5>PHP</h5>
-                </div>
-              </div>
-            </div>
-            <div class="pf-skills__card">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img src="../../../public/php.png" alt="">
-                  </div>
-                <div class="pf-skills__card-name">
-                  <h5>PHP</h5>
-                </div>
-              </div>
-            </div>
-        </div>
         </div>
 
       </div>

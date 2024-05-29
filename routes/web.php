@@ -2,17 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 });
 
 Route::get('/dashboard', function () {
@@ -21,8 +17,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/skills', [SkillsController::class, 'index'])->name('skills.index');
+    Route::get('/dashboard/skills/{id}', [SkillsController::class, 'show'])->name('skills.show');
     Route::post('/dashboard/skills', [SkillsController::class, 'create'])->name('skills.create');
-    Route::put('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
+    Route::post('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
     Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
 });
 
