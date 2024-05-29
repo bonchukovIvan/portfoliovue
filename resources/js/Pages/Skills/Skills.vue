@@ -1,6 +1,20 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import FormModal from '@/Components/FormModal.vue';
+import ItemList from '@/Components/ItemList.vue';
+import ItemForm from '@/Components/ItemForm.vue';
+import pfbutton from '@/Components/UI/PfButton.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+
+const props = defineProps({
+    skills: {
+        type: Array,
+        default: () => [],
+    },
+    errors: Object,
+    editErrors: Object,
+
+});
 
 const form = useForm({
     id: null,
@@ -16,25 +30,23 @@ const editForm = useForm({
 function submit() {
   form.post("/dashboard/skills", {
     onSuccess: () => {
-        form.reset('title');
-        form.reset('image');
+        form.reset();
+    },
+    onError: (e) => {
+        console.log(e);
     }
   });
 };
 function submitEdit() {
     const formData = new FormData();
     formData.append('title', editForm.title);
-
     if (editForm.image instanceof File) {
         formData.append('image', editForm.image);
     }
-
     editForm.post(`skills/${editForm.id}`, {
-        _method: 'patch',
         data: formData,
         onSuccess: () => {
-            editForm.reset('title');
-            editForm.reset('image');
+            editForm.reset();
         }
     });
 };
@@ -47,13 +59,14 @@ const editSkill = (id, skills) => {
     editForm.title = skill.title;
     editForm.image = skill.image;
 };
-const props = defineProps({
-    skills: {
-        type: Array,
-        default: () => [],
-    }
-});
-const app_url = import.meta.env.VITE_APP_URL;
+
+const openModal = ()  => {
+    isModalVisible = true;
+};
+const closeModal = () => {
+    isModalVisible = false;
+};
+
 </script>
 
 <template>
@@ -64,44 +77,36 @@ const app_url = import.meta.env.VITE_APP_URL;
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Skills</h2>
         </template>
         <div class="container">
+
             <div class="pf-create">
                 <form @submit.prevent="submit" class="pf-create__form">
                     <label for="title">Title</label>
                     <input type="text" id="title" v-model="form.title" />
+                    <div class="pf-errors__input" v-if="errors.title">{{ errors.title }}</div>
                     <label for="Image">Image</label>
                     <input type="file" @input="form.image = $event.target.files[0]" />
+                    <div class="pf-errors__input" v-if="errors.image">{{ errors.image }}</div>
                     <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                         {{ form.progress.percentage }}%
                     </progress>
-                    <button type="submit" >Submit</button>
+                    <pfbutton type="submit" >Submit</pfbutton>
                 </form>
             </div>
-            <div class="pf-items">
-                <tbody class="pf-items__list">
-                    <tr v-for="skill in skills" :key="skill.id">
-                        <td>{{ skill.title }}</td>
-                        <td>
-                            <img v-if="skill.image" :src="app_url+skill.image" :alt="skill.title" style="width: 100px; height: auto;">
-                        </td>
-                        <td>
-                            <button @click="editSkill(skill.id, skills)" class="pf-edit">Edit</button>
-                        </td>
-                        <td>
-                            <button @click="deleteSkill(skill.id)" class="pf-delete">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </div>
+
+            <ItemList :items="skills"/>
+
             <div class="pf-create">
                 <form @submit.prevent="submitEdit" class="pf-create__form">
                     <label for="title">Title</label>
                     <input type="text" id="title" v-model="editForm.title" />
+                    <div class="pf-errors__input" v-if="errors.title">{{ errors.title }}</div>
                     <label for="Image">Image</label>
                     <input type="file" @input="editForm.image = $event.target.files[0]" />
+                    <div class="pf-errors__input" v-if="errors.image">{{ errors.image }}</div>
                     <progress v-if="editForm.progress" :value="editForm.progress.percentage" max="100">
                         {{ editForm.progress.percentage }}%
                     </progress>
-                    <button type="submit">Update</button>
+                    <pfbutton type="submit">Update</pfbutton>
                 </form>
             </div>
         </div>
@@ -109,6 +114,14 @@ const app_url = import.meta.env.VITE_APP_URL;
 </template>
 
 <style lang="scss">
+    .pf-errors {
+        &__input {
+            background-color: #F74949;
+            color: #fff;
+            border-radius: 6px;
+            padding: 5px;
+        }
+    }
     .pf-create {
         padding: 50px;
         max-width: 750px;
@@ -120,63 +133,9 @@ const app_url = import.meta.env.VITE_APP_URL;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            input,
-            button {
-                border-radius: 6px;
-            }
-            input[type=file] {
-                background-color: #F0BF6C;
-                padding: 10px;
-
-            }
-            button[type=submit] {
-                padding: 7px;
-                background-color: #3D3E42;
-                color: #f7f7f7;
-            }
         }
     }
-    .pf-items {
-        &__list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            tr {
-                display: flex;
-                justify-content: space-between;
-                padding: 15px;
-                background-color: #fff;
-                border: 1px solid #e7e7e7;
-                border-radius: 17px;
-                button {
-                    padding: 5px;
-                    border-radius: 6px;
-                }
-                button.pf-edit {
-                    background-color: #F0BF6C;
-                }
-                button.pf-delete {
-                    letter-spacing: 1px;
-                    color: #fff;
-                    font-weight: bold;
-                    background-color: #F74949;
-                }
-                td {
-                    height: 50px;
-                    width: 50px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center
-                }
-                td img {
-                    min-height: 100%;
-                    min-width: 100%;
-                    object-fit: cover;
-                }
-            }
-        }
-        max-width: 750px;
-        margin: 50px auto;
+    input[type=file] {
+        border-radius: 6px;
     }
 </style>

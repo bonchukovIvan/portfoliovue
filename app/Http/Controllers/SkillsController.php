@@ -21,6 +21,10 @@ class SkillsController extends Controller
 
     public function create(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:25',
+            'image' => 'required|image',
+        ]);
         $skill = Skills::create([
             'title' => $request['title']
         ]);
@@ -36,6 +40,10 @@ class SkillsController extends Controller
 
     public function edit($id, Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:25',
+            'image' => 'required|image',
+        ]);
         $skill = Skills::findOrFail($id);
         if(request()->hasFile('image')) {
             if ($skill->image) {
