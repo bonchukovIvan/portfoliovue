@@ -11,6 +11,7 @@ class Skills extends Model
 
     protected $fillable = [
         'title',
+        'slink',
         'image',
     ];
 }

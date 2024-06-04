@@ -42,6 +42,7 @@ defineProps({
 
         <div class="pf-skills__cards">
             <div class="pf-skills__card"  v-for="skill in skills" :key="skill.id">
+              <a :href="skill.slink" target="_blank">
                 <div class="pf-skills__card-body">
                   <div class="pf-skills__card-img">
                     <img v-if="skill.image" :src="app_url+skill.image" :alt="skill.title">
@@ -50,6 +51,7 @@ defineProps({
                     <h5>{{ skill.title }}</h5>
                   </div>
                 </div>
+              </a>
             </div>
         </div>
 

@@ -20,13 +20,14 @@ class SkillsController extends Controller
     }
 
     public function create(Request $request)
-    {
+    {   
         $request->validate([
             'title' => 'required|max:25',
-            'image' => 'required|image',
+            'image' => 'required|image|extensions:jpg,png',
         ]);
         $skill = Skills::create([
-            'title' => $request['title']
+            'title' => $request['title'],
+            'slink' => $request['slink']
         ]);
         if(request()->hasFile('image')) {
             $image = Hash::make($skill->id.request()->file('image')->getClientOriginalName());
@@ -42,10 +43,12 @@ class SkillsController extends Controller
     {
         $request->validate([
             'title' => 'required|max:25',
-            'image' => 'required|image',
         ]);
         $skill = Skills::findOrFail($id);
         if(request()->hasFile('image')) {
+            $request->validate([
+                'image' => 'extensions:jpg,png',
+            ]);
             if ($skill->image) {
                 Storage::delete(str_replace('/public/storage/', 'public/', $skill->image));
             }
@@ -55,7 +58,8 @@ class SkillsController extends Controller
             $skill->update(['image' => '/public/storage/'.$image]);
         }
         $skill->update([
-            'title' => $request['title']
+            'title' => $request['title'],
+            'slink' => $request['slink']
         ]);
         return redirect()->route('skills.index');
     }
