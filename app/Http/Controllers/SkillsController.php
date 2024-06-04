@@ -23,7 +23,7 @@ class SkillsController extends Controller
     {   
         $request->validate([
             'title' => 'required|max:25',
-            'image' => 'required|image|extensions:jpg,png',
+            'image' => 'required|image|extensions:jpg,png,webp',
         ]);
         $skill = Skills::create([
             'title' => $request['title'],

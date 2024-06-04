@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SkillsController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SkillsController;
+use App\Http\Controllers\PortfolioItemController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -21,6 +22,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/skills', [SkillsController::class, 'create'])->name('skills.create');
     Route::post('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
     Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/portfolio', [PortfolioItemController::class, 'index'])->name('portfolio.index');
+    // Route::get('/dashboard/skills/{id}', [SkillsController::class, 'show'])->name('skills.show');
+    // Route::post('/dashboard/skills', [SkillsController::class, 'create'])->name('skills.create');
+    // Route::post('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
+    // Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
 });
 
 Route::middleware('auth')->group(function () {

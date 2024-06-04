@@ -33,6 +33,7 @@ defineProps({
       </div>
     </div>
   </section>
+  
   <section class="pf-section pf-skills">
     <div class="container">
       <div class="pf-skills__body">
@@ -41,11 +42,21 @@ defineProps({
         </div>
 
         <div class="pf-skills__cards">
-            <div class="pf-skills__card"  v-for="skill in skills" :key="skill.id">
+            <div 
+            class="pf-skills__card" 
+            v-for="skill in skills" 
+            :key="skill.id"
+            >
               <a :href="skill.slink" target="_blank">
                 <div class="pf-skills__card-body">
                   <div class="pf-skills__card-img">
-                    <img v-if="skill.image" :src="app_url+skill.image" :alt="skill.title">
+                    <img 
+                    v-if="skill.image" 
+                    :src="app_url+skill.image" 
+                    :alt="skill.title"
+                    width="150" 
+                    height="150"
+                    >
                   </div>
                   <div class="pf-skills__card-name">
                     <h5>{{ skill.title }}</h5>
@@ -58,23 +69,25 @@ defineProps({
       </div>
     </div>
   </section>
+
   <section class="pf-section pf-portfolio">
     <div class="container">
       <div class="pf-portfolio__body">
+
         <div class="pf-title pf-section-title">
           <h2>Portfolio</h2>
         </div>
+
         <div class="pf-cards pf-portfolio__cards">
           <div class="pf-cards-group pf-portfolio__cards-group">
             <div class="pf-portfolio__card">
-
               <div class="pf-portfolio__card-body">
                 <div class="pf-portfolio__more">
                   <div class="pf-portfolio__title">
                     <h5>Сайт Кафедри військової підготовки СумДу</h5>
                   </div>
                   <div class="pf-portfolio__btn">
-                    <button>More information</button>
+                  <button>More information</button>
                   </div>
                 </div>
                 <div class="pf-portfolio__img">
@@ -83,98 +96,12 @@ defineProps({
               </div>
               <div class="pf-gradient__gray"></div>
             </div>
-            <div class="pf-portfolio__card">
-
-<div class="pf-portfolio__card-body">
-  <div class="pf-portfolio__more">
-    <div class="pf-portfolio__title">
-      <h5>Сайт Кафедри військової підготовки СумДу</h5>
-    </div>
-    <div class="pf-portfolio__btn">
-      <button>More information</button>
-    </div>
-  </div>
-  <div class="pf-portfolio__img">
-    <img src="../../../public/s.png" alt="">
-  </div>
-</div>
-<div class="pf-gradient__gray"></div>
-          </div>
-          <div class="pf-portfolio__card">
-
-          <div class="pf-portfolio__card-body">
-            <div class="pf-portfolio__more">
-              <div class="pf-portfolio__title">
-                <h5>Сайт Кафедри військової підготовки СумДу</h5>
-              </div>
-              <div class="pf-portfolio__btn">
-                <button>More information</button>
-              </div>
-            </div>
-            <div class="pf-portfolio__img">
-              <img src="../../../public/s.png" alt="">
-            </div>
-          </div>
-          <div class="pf-gradient__gray"></div>
-          </div>
-          </div>
-          <div class="pf-cards-group pf-portfolio__cards-group">
-            <div class="pf-portfolio__card">
-
-              <div class="pf-portfolio__card-body">
-                <div class="pf-portfolio__more">
-                  <div class="pf-portfolio__title">
-                    <h5>Сайт Кафедри військової підготовки СумДу</h5>
-                  </div>
-                  <div class="pf-portfolio__btn">
-                    <button>More information</button>
-                  </div>
-                </div>
-                <div class="pf-portfolio__img">
-                  <img src="../../../public/s.png" alt="">
-                </div>
-              </div>
-              <div class="pf-gradient__gray"></div>
-            </div>
-            <div class="pf-portfolio__card">
-
-<div class="pf-portfolio__card-body">
-  <div class="pf-portfolio__more">
-    <div class="pf-portfolio__title">
-      <h5>Сайт Кафедри військової підготовки СумДу</h5>
-    </div>
-    <div class="pf-portfolio__btn">
-      <button>More information</button>
-    </div>
-  </div>
-  <div class="pf-portfolio__img">
-    <img src="../../../public/s.png" alt="">
-  </div>
-</div>
-<div class="pf-gradient__gray"></div>
-          </div>
-          <div class="pf-portfolio__card">
-
-          <div class="pf-portfolio__card-body">
-            <div class="pf-portfolio__more">
-              <div class="pf-portfolio__title">
-                <h5>Сайт Кафедри військової підготовки СумДу</h5>
-              </div>
-              <div class="pf-portfolio__btn">
-                <button>More information</button>
-              </div>
-            </div>
-            <div class="pf-portfolio__img">
-              <img src="../../../public/s.png" alt="">
-            </div>
-          </div>
-          <div class="pf-gradient__gray"></div>
-          </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <section class="pf-section pf-expirience">
     <div class="container">
       <div class="pf-expirience__body">
