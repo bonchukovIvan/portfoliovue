@@ -22,7 +22,7 @@ const app_url = import.meta.env.VITE_APP_URL;
                     <img v-if="item.image" :src="app_url+item.image" :alt="item.title" style="width: 100px; height: auto;">
                 </td>
                 <td>
-                    <pfbutton @click="editItem(item.id, items)" class="pf-edit">Edit</pfbutton>
+                    <pfbutton @click="editItem(item.id)" class="pf-edit">Edit</pfbutton>
                 </td>
                 <td>
                     <pfbutton @click="deleteItem(item.id)" class="pf-delete">Delete</pfbutton>

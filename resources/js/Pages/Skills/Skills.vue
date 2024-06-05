@@ -95,7 +95,7 @@ const closeEditModal = () => {
 }
 const openEditModal = (id, skills) => {
   isEditOpenModal.value = true;
-  editSkill(id, skills);
+  editSkill(id);
 }
 
 const form = useForm({
@@ -139,8 +139,8 @@ function submitEdit() {
 const deleteSkill = (id) => {
     form.delete(`skills/${id}`);
 };
-const editSkill = (id, skills) => {
-    const skill = skills.find(item => item.id === id);
+const editSkill = (id) => {
+    const skill = props.skills.find(item => item.id === id);
     editForm.id = skill.id;
     editForm.title = skill.title;
     editForm.slink = skill.slink;
