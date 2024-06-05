@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/portfolio', [PortfolioItemController::class, 'index'])->name('portfolio.index');
     // Route::get('/dashboard/skills/{id}', [SkillsController::class, 'show'])->name('skills.show');
-    // Route::post('/dashboard/skills', [SkillsController::class, 'create'])->name('skills.create');
+    Route::post('/dashboard/portfolio', [PortfolioItemController::class, 'create'])->name('portfolio.create');
     // Route::post('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
     // Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
 });

@@ -19,6 +19,6 @@ class PortfolioItem extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(PortfolioImage::class);
+        return $this->hasMany(PortfolioImage::class, 'item_id', 'id');
     }
 }

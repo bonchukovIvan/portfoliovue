@@ -19,7 +19,7 @@
                         <input type="text" id="title" v-model="form.title" />
                         <div class="pf-errors__input" v-if="errors.title">{{ errors.title }}</div>
 
-                        <label for="description">Link</label>
+                        <label for="description">Description</label>
                         <input type="text" id="description" v-model="form.description" />
                         <div class="pf-errors__input" v-if="errors.description">{{ errors.description }}</div>
 
@@ -31,9 +31,9 @@
                         <input type="text" id="git_link" v-model="form.git_link" />
                         <div class="pf-errors__input" v-if="errors.git_link">{{ errors.git_link }}</div>
 
-                        <label for="Image">Image</label>
+                        <label for="Image">Images</label>
                         <input type="file" @input="form.images = $event.target.files" multiple="multiple"/>
-                        <div class="pf-errors__input" v-if="errors.image">{{ errors.image }}</div>
+                        <div class="pf-errors__input" v-if="errors.images">{{ errors.images }}</div>
                         <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                             {{ form.progress.percentage }}%
                         </progress>
@@ -42,6 +42,20 @@
                     </form>
                 </div>
             </Modal>
+        </div>
+
+        <div class="pf-items">
+            <tbody class="pf-items__list">
+                <tr v-for="item in items" :key="item.id">
+                    <td>{{ item.title }}</td>
+                    <td>
+                        <pfbutton @click="editItem(item.id, items)" class="pf-edit">Edit</pfbutton>
+                    </td>
+                    <td>
+                        <pfbutton @click="deleteItem(item.id)" class="pf-delete">Delete</pfbutton>
+                    </td>
+                </tr>
+            </tbody>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -55,7 +69,7 @@ import Modal from '@/Components/Modal.vue';
 import pfbutton from '@/Components/UI/PfButton.vue';
 
 const props = defineProps({
-    items: {
+    portfolio_items: {
         type: Array,
         default: () => [],
     },
@@ -67,10 +81,11 @@ const form = useForm({
     description: null,
     site_link: null,
     git_link: null,
+    images: null,
 });
 
 function createSubmit() {
-  form.post("/dashboard/skills", {
+  form.post("/dashboard/portfolio", {
     onSuccess: () => {
         form.reset();
         closeCreateModal();
@@ -123,5 +138,13 @@ const closeCreateModal = () => {
     }
     input[type=file] {
         border-radius: 6px;
+    }
+    .pf-errors {
+        &__input {
+            background-color: #F74949;
+            color: #fff;
+            border-radius: 6px;
+            padding: 5px;
+        }
     }
 </style>
