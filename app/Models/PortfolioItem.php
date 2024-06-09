@@ -15,6 +15,7 @@ class PortfolioItem extends Model
         'description',
         'site_link',
         'git_link',
+        'preview_path',
     ];
 
     public function images(): HasMany

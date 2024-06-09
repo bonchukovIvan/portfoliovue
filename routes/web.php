@@ -10,6 +10,7 @@ use App\Http\Controllers\PortfolioItemController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/portfolio/{id}', [HomeController::class, 'show_portfolio'])->name('home.portfolio');
 });
 
 Route::get('/dashboard', function () {

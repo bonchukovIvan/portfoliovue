@@ -102,7 +102,6 @@
         flex: 25%;
         &-body {
             transition: 0.3s all;
-            // height: 100%;
             padding: 50px;
             background-color: #3D3E42;
             border-radius: 25px;
@@ -145,13 +144,15 @@ button {
     }
 }
 .pf-gradient__gray {
-    display: none;
+    display: block;
     width: 100%;
     height: 100%;
-    background-color: #1a1a1bb0;
+    background-color: #000000d2;
     position: absolute;
     left: 0;
     top: 0;
+    transition: 0.3s all;
+    opacity: 0;
 }
 .pf-portfolio {
     &__body {
@@ -159,19 +160,25 @@ button {
         flex-direction: column;
         gap: 50px;
     }
+    &__cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
     &__card {
         position: relative;
     }
     &__card:hover &__more{
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+        opacity: 100%;
     }
     &__card:hover .pf-gradient__gray {
         display: block;
+        opacity: 100%;
     }
     &__more {
-        display: none;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
         position: absolute;
         z-index: 99;
         top: 180px;
@@ -179,11 +186,14 @@ button {
         right: 0;
         margin: auto;
         width: 300px;
+        transition: 0.3s all;
     }
     &__title {
         font-weight: bold;
         font-size: 20px;
         text-align: center;
+        color: #f7f7f7;
+        cursor: default;
     }
     &__btn {
         text-align: center;

@@ -44,13 +44,13 @@
                             {{ form.progress.percentage }}%
                         </progress>
                         <div class="preview" v-if="urls.length">
-                            <div v-for="url in urls" class="preview__img-container">
-                                <img  :src="url" />
+                            <div v-for="item in urls" class="preview__img-container">
+                                <img  :src="item.url" />
                                 <button 
                                 type="button" 
-                                class="preview__btn" 
-                                @click="removeFromPreview(url)"
-                                >Remove</button>
+                                :class="item.is_preview ? 'preview__btn selected' : 'preview__btn'"
+                                @click="setPreview(item.name, item.is_preview)"
+                                >Set as a preview</button>
                             </div>
                         </div>
                         <pfbutton type="submit">Submit</pfbutton>
@@ -91,6 +91,7 @@
                     <label for="Image">Images</label>
                     <input type="file" @input="editForm.images = $event.target.files" multiple="multiple"/>
                     <div class="pf-errors__input" v-if="errors.images">{{ errors.images }}</div>
+                    <div class="pf-errors__input" v-if="errors.preview_path">{{ errors.preview_path }}</div>
                     <progress v-if="editForm.progress" :value="editForm.progress.percentage" max="100">
                         {{ editForm.progress.percentage }}%
                     </progress>
@@ -126,6 +127,7 @@ const form = useForm({
     site_link: null,
     git_link: null,
     images: null,
+    preview_path: null,
 });
 
 const editForm = useForm({
@@ -135,6 +137,7 @@ const editForm = useForm({
     site_link: null,
     git_link: null,
     images: null,
+    preview_path: null,
 });
 
 const urls = ref([]);
@@ -154,20 +157,40 @@ function createSubmit() {
         console.log(e);
     }
   });
-};
+}
+
 const onFileChange = (e) => {
     const files = e.target.files;
+    urls.value.length = 0;
     for (const [i, file] of Object.entries(files)) {
-        urls.value.push(URL.createObjectURL(file));
+        const s_file = {
+            name: file.name,
+            url: URL.createObjectURL(file),
+            is_preview: false,
+        }
+        urls.value.push(s_file);
     }
 }
-const removeFromPreview = (url) => {
-    urls.value = urls.value.filter(e => e != url);
-    console.log(this.$refs);
-};
+
+const setPreview = (name) => {
+    urls.value.map(e => {
+        if (e.name === name) {
+            e.is_preview = true;
+        } else {
+            e.is_preview = false;
+        }
+    });
+    for (const [i, file] of Object.entries(form.images)) {
+        if (file.name === name) {
+            form.preview_path = file;
+        }
+    }
+    console.log(form)
+}
+
 const deleteSkill = (id) => {
     form.delete(`skills/${id}`);
-};
+}
 
 // modal
 const openCreateModal = () => {
@@ -178,6 +201,7 @@ const closeCreateModal = () => {
   form.reset();
   urls.value = [];
 }
+
 // edit modal
 const closeEditModal = () => {
   isEditOpenModal.value = false;
@@ -196,7 +220,7 @@ const editItem = (id) => {
         editForm.images = item.images;
         openEditModal();
     }
-};
+}
 
 </script>
 
@@ -266,6 +290,9 @@ const editItem = (id) => {
             right: 0;
             padding: 10px;
             background-color: #dbdbdba2;
+            &.selected {
+                background-color: #83da49a2;
+            }
         }
     }
 </style>

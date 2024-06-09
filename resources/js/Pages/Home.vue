@@ -1,75 +1,13 @@
-<script setup>
-import ApplicationHeader from '@/Components/ApplicationHeader.vue';
-import ApplicationFooter from '@/Components/ApplicationFooter.vue';
-
-const app_url = import.meta.env.VITE_APP_URL;
-
-defineProps({
-    skills: {
-        type: Array,
-        default: () => [],
-    },
-});
-</script>
-
 <template>
   <ApplicationHeader />
-  <section class="pf-section pf-about">
-    <div class="container">
-      <div class="pf-about__body">
-        <div class="pf-title pf-section-title">
-          <h2>About</h2>
-        </div>
-        <div class="pf-about__text">
-          <div class="pf-about__v-line"></div>
-          <p>
-            wassup :^)<br>
-            I`m passionate PHP developer with 1 years of experience. Passionate about
-            creating responsive and visually appealing web interfaces. Looking for
-            opportunities to collaborate with skilled teams to deliver exceptional user
-            experiences.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
   
-  <section class="pf-section pf-skills">
-    <div class="container">
-      <div class="pf-skills__body">
-        <div class="pf-title pf-section-title">
-          <h2>My Skills</h2>
-        </div>
+  <About/>
 
-        <div class="pf-skills__cards">
-            <div 
-            class="pf-skills__card" 
-            v-for="skill in skills" 
-            :key="skill.id"
-            >
-              <a :href="skill.slink" target="_blank">
-                <div class="pf-skills__card-body">
-                  <div class="pf-skills__card-img">
-                    <img 
-                    v-if="skill.image" 
-                    :src="app_url+skill.image" 
-                    :alt="skill.title"
-                    width="150" 
-                    height="150"
-                    >
-                  </div>
-                  <div class="pf-skills__card-name">
-                    <h5>{{ skill.title }}</h5>
-                  </div>
-                </div>
-              </a>
-            </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
+  <Skills 
+  :skills="skills"
+  :app_url="app_url"
+  />
+  
   <section class="pf-section pf-portfolio">
     <div class="container">
       <div class="pf-portfolio__body">
@@ -79,63 +17,88 @@ defineProps({
         </div>
 
         <div class="pf-cards pf-portfolio__cards">
-          <div class="pf-cards-group pf-portfolio__cards-group">
-            <div class="pf-portfolio__card">
-              <div class="pf-portfolio__card-body">
-                <div class="pf-portfolio__more">
-                  <div class="pf-portfolio__title">
-                    <h5>Сайт Кафедри військової підготовки СумДу</h5>
-                  </div>
-                  <div class="pf-portfolio__btn">
-                  <button>More information</button>
-                  </div>
+          <div class="pf-portfolio__card"        
+          v-for="item in portfolio" 
+          :key="item.id"
+          >
+            <div class="pf-portfolio__card-body">
+              <div class="pf-portfolio__more">
+                <div class="pf-portfolio__title">
+                  <h5>{{ item.title }}</h5>
                 </div>
-                <div class="pf-portfolio__img">
-                  <img src="../../../public/s.png" alt="">
+                <div class="pf-portfolio__btn">
+                  <button @click="openPortfolio(item.id)">More information</button>
                 </div>
               </div>
-              <div class="pf-gradient__gray"></div>
+              <div class="pf-portfolio__img">
+                <img 
+                :src="app_url+item.preview_path"
+                :alt="item.title"
+                width="150" 
+                height="150"
+                >
+              </div>
             </div>
+            <div class="pf-gradient__gray"></div>
+
+            <Modal
+            :isOpenModal="isOpenModal" 
+            :closeModal="closeModal"
+            >
+            <div class="pf-gallery">
+              <div 
+              class="pf-gallery__item" 
+              v-for="image in item.images" 
+              :key="image.id"
+              >
+                <img :src="app_url+image.path" alt="" srcset="">
+              </div>
+            </div>
+            </Modal>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <section class="pf-section pf-expirience">
-    <div class="container">
-      <div class="pf-expirience__body">
-        <div class="pf-title pf-section-title">
-          <h2>Expirience</h2>
-        </div>
-        <div class="pf-expirience__item">
-          <div class="pf-expirience__item-title">
-            <h3>Center for web-development SumDU</h3>
-          </div>
-          <div class="pf-expirience__project">
-            <div class="pf-expirience__project-item">
-              <h4>Main project:</h4>
-              <p>SumDu Monitoring System, wordpress-based services for checking information about SumDU sites network. Developed from scratch</p>
-            </div>
-            <div class="pf-expirience__project-item">
-              <h4>Work responsibilities:</h4>
-              <p>Developing WordPress and Joomla plugins to gather
-                information about websites. Also, developing a WordPress service that retrieves and
-                manages information from sites, such as details about their latest posts, menu
-                items, etc.
-              </p>
-            </div>
-            <div class="pf-expirience__project-item">
-              <h4>Technologies:</h4>
-              <p>PHP-curl, WordPress, Joomla, ACF, HTML/SCSS/jQuery, Docker+WSL, GIT.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Expirience />
+
   <ApplicationFooter />
 </template>
+
+<script setup>
+import { ref, defineProps } from 'vue';
+
+import ApplicationHeader from '@/Components/ApplicationHeader.vue';
+import Modal from '@/Components/Modal.vue';
+import About from './Partials/About.vue';
+import Skills from './Partials/Skills.vue';
+import Expirience from './Partials/Expirience.vue';
+
+
+const app_url = import.meta.env.VITE_APP_URL;
+const isOpenModal = ref(false);
+defineProps({
+    skills: {
+        type: Array,
+        default: () => [],
+    },
+    portfolio: {
+      type: Array,
+      default: () => [],
+    }
+});
+const closeModal = () => {
+  isOpenModal.value = false;
+}
+const openModal = () => {
+  isOpenModal.value = true;
+}
+const openPortfolio = (id) => {
+  window.open(`/portfolio/${id}`, '_blank');
+}
+</script>
 
 <style scoped>
 @import '@styles/Components/_header.scss';

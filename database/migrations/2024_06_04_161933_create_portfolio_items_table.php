@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('site_link')->nullable();
             $table->string('git_link')->nullable();
+            $table->string('preview_path');
 
             $table->timestamps();
         });
