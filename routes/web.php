@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/dashboard/skills/{id}', [SkillsController::class, 'show'])->name('skills.show');
     Route::post('/dashboard/portfolio', [PortfolioItemController::class, 'create'])->name('portfolio.create');
     // Route::post('/dashboard/skills/{id}', [SkillsController::class, 'edit'])->name('skills.edit');
-    // Route::delete('/dashboard/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
+    Route::delete('/dashboard/portfolio/{id}', [PortfolioItemController::class, 'destroy'])->name('skills.destroy');
 });
 
 Route::middleware('auth')->group(function () {

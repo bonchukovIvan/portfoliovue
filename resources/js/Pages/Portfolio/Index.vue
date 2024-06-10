@@ -63,7 +63,7 @@
         <ItemList 
         :items="portfolio_items"
         :editItem="openEditModal"
-        :deleteItem="deleteSkill"
+        :deleteItem="deletePortfolio"
         />
 
         <Modal 
@@ -188,8 +188,8 @@ const setPreview = (name) => {
     console.log(form)
 }
 
-const deleteSkill = (id) => {
-    form.delete(`skills/${id}`);
+const deletePortfolio = (id) => {
+    form.delete(`portfolio/${id}`);
 }
 
 // modal

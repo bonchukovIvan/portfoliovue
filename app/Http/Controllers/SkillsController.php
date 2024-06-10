@@ -66,7 +66,6 @@ class SkillsController extends Controller
 
     public function show($id): Response
     {
-        $baseUrl = config('app.url');
         $skill = Skills::findOrFail($id);
         return $skill;
 
@@ -74,7 +73,6 @@ class SkillsController extends Controller
 
     public function destroy($id)
     {
-        $baseUrl = config('app.url');
         $skill = Skills::findOrFail($id);
         if ($skill->image) {
             Storage::delete(str_replace('/public/storage/', 'public/', $skill->image));

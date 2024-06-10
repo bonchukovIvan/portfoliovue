@@ -6,6 +6,7 @@
             <div class="pf-portfolio__body">
 
                 <BorderHeader>{{ portfolio.title }}</BorderHeader>
+
                 <div class="pf-portfolio__preview">
 
                     <div class="pf-gradient__gray--single"></div>
@@ -16,108 +17,108 @@
                         >
                     </div>
                 </div>
-
                 <div class="pf-portfolio__description">
                     <p>
                         {{ portfolio.description }}
                     </p>
                 </div>
-
-                <div class="pf-portfolio__gallery">
-                    <h2>
-                        Screenshots
-                    </h2>
-                    <swiper
-                        :slides-per-view="1"
-                        :space-between="50"
-                        navigation
-                        :pagination="true"
-                        :scrollbar="{ draggable: true }"
-                        :modules="[Pagination, Navigation]"
-                        @swiper="onSwiper"
-                        @slideChange="onSlideChange"
-                    >
-                        <swiper-slide v-for="item in portfolio.images">
-                            <img :src="app_url+item.path" alt="">
-                        </swiper-slide>
-                    </swiper>
-                </div>
                 <div class="pf-portfolio__links">
-                        <a 
-                            v-if="portfolio.site_link"
-                            :href="portfolio.site_link" 
-                            target="_blank"
-                        >
-                            <div class="pf-portfolio__links-site">
-                                <div>
-                                    <img src="/hp.webp" alt="">
-                                </div>
-                        
-                        </div>
-                        </a>
-                        <a 
-                            v-if="portfolio.git_link"
-                            :href="portfolio.git_link" 
-                            target="_blank"
-                        >
-                            <div class="pf-portfolio__links-git">
-                                <div>
-                                    <img src="/github.png" alt="">
-                                </div>
-                                
+                    <a 
+                        v-if="portfolio.site_link"
+                        :href="portfolio.site_link" 
+                        target="_blank"
+                    >
+                        <div class="pf-portfolio__links-site">
+                            <div>
+                                <img src="/hp.webp" alt="">
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                    <a 
+                        v-if="portfolio.git_link"
+                        :href="portfolio.git_link" 
+                        target="_blank"
+                    >
+                        <div class="pf-portfolio__links-git">
+                            <div>
+                                <img src="/github.png" alt="">
+                            </div>
+                            
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+        <div class="pf-portfolio__gallery">
+            <div class="pf-portfolio__title-wrap">
+                <h2>
+                    Screenshots
+                </h2>
+            </div>
 
+            <carousel :autoplay="3000" :items-to-show="1"  :wrap-around="true" :transition="450">
+                <slide v-for="image in portfolio.images" :key="image">
+                    <div class="carousel__item"><img :src="app_url+image.path" alt=""></div>
+                    
+                </slide>
+                <template #addons>
+                    <navigation />
+                    <pagination />
+                </template>
+            </carousel>
+        </div>
+    </section>
     <ApplicationFooter />
 </template>
   
 <script setup>
-import { ref, defineProps } from 'vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination, Scrollbar, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/bundle';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+import 'vue3-carousel/dist/carousel.css'
 
 import ApplicationHeader from '@/Components/ApplicationHeader.vue';
 import ApplicationFooter from '@/Components/ApplicationFooter.vue';
 import BorderHeader from '@/Components/BorderHeader.vue';
 
 const app_url = import.meta.env.VITE_APP_URL;
-const isOpenModal = ref(false);
 defineProps({
     portfolio: {
         type: Array,
         default: () => [],
     }
 });
-const onSwiper = (swiper) => {
-        console.log(swiper);
-      };
-const onSlideChange = () => {
-    console.log('slide change');
-};
 </script>
 
 <style lang="scss" scoped>
+.carousel {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    &__pagination {
+        padding: 25px 0;
+    }
+}
 .pf-portfolio {
+    background-color: #202124;
     &__body {
-        gap: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+    h2 {
+        margin-bottom: 25px;
     }
     &__gallery {
-        background-color: #F0BF6C;
-        border-radius: 20px;
+        background-color: #ffffff;
         padding: 25px;
-        font-size: 24px;
+        font-size: 32px;
         text-transform: uppercase;
-        img {
-            height: 100%;
-            width: 100%;
-            margin: 25px 0px;
-            border-radius: 13px;
+        text-align: center;
+        .carousel__item {
+            height: 650px;
+            img {
+                padding: 20px;
+                height: 100%;
+                object-fit: contain;
+            }
         }
     }
     &__description {
@@ -136,7 +137,7 @@ const onSlideChange = () => {
             border-radius: 20px;
             object-fit: cover;
             max-height: 500px;
-            max-width: 100%;
+            width: 100%;
         }
     }
     &__links {
@@ -144,6 +145,7 @@ const onSlideChange = () => {
         flex-direction: column;
         gap: 25px;
         font-size: 20px;
+        margin: 50px;
         a {
             width: 100%;
         }

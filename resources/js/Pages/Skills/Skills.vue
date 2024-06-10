@@ -93,7 +93,7 @@ const closeCreateModal = () => {
 const closeEditModal = () => {
   isEditOpenModal.value = false;
 }
-const openEditModal = (id, skills) => {
+const openEditModal = (id) => {
   isEditOpenModal.value = true;
   editSkill(id);
 }

@@ -8,10 +8,13 @@
 #app {
     font-size: 18px;
     line-height: 1.4;
-    /* color: #f7f7f7; */
 }
 .container {
     max-width: 1520px;
     padding: 0 50px;
     margin: auto;
 }
+.pf-section {
+    padding: 100px 0;
+    background-color: #202124;
+}  

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\Models\PortfolioItem;
 use App\Models\PortfolioImage;
@@ -101,8 +102,18 @@ class PortfolioItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PortfolioItem $portfolioItem)
+    public function destroy($id)
     {
-        //
+        $portfolio = PortfolioItem::findOrFail($id);
+        if ($portfolio->preview_path) {
+            Storage::delete(str_replace('/public/storage/', 'public/', $portfolio->preview_path));
+        }
+        if ($portfolio->images) {
+            foreach($portfolio->images as $image) {
+                Storage::delete(str_replace('/public/storage/', 'public/', $image->path));
+            }
+        }
+        $portfolio->delete();
+        return redirect()->route('portfolio.index');
     }
 }

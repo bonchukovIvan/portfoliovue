@@ -2,9 +2,9 @@
   <section class="pf-section pf-about">
     <div class="container">
       <div class="pf-about__body">
-        <div class="pf-title pf-section-title">
-          <h2>About</h2>
-        </div>
+        
+        <BorderHeader>About</BorderHeader>
+
         <div class="pf-about__text">
           <div class="pf-about__v-line"></div>
           <p>
@@ -20,6 +20,35 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import BorderHeader from '@/Components/BorderHeader.vue';
 
 </script>
+
+<style lang="scss" scoped>
+.pf-about {
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+    font-size: 20px;
+    &__text {
+        color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        p {
+            max-width: 750px;
+            text-align: justify;
+        }
+    }
+    &__v-line {
+        height: 3px;
+        background-color: #F0BF6C;
+        position: relative;
+        top: 15px;
+        right: 10px;
+        min-width: 100px;
+    }
+}
+</style>
