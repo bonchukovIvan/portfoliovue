@@ -1,6 +1,6 @@
 <template>
   <ApplicationHeader />
-  
+
   <About/>
 
   <Skills 
@@ -39,14 +39,9 @@ defineProps({
     portfolio: {
       type: Array,
       default: () => [],
-    }
+    },
+    contacts_url: String,
 });
-const closeModal = () => {
-  isOpenModal.value = false;
-}
-const openModal = () => {
-  isOpenModal.value = true;
-}
 const openPortfolio = (id) => {
   window.open(`/portfolio/${id}`, '_blank');
 }

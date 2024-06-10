@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Hash;
+use URL;
+
 use App\Models\Skills;
 use App\Models\PortfolioItem;
-use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -19,7 +21,8 @@ class HomeController extends Controller
         
         return Inertia::render('Home', [
             'skills' => $skills,
-            'portfolio' => $portfolio
+            'portfolio' => $portfolio,
+            'contacts_url' => URL::route('home.contacts'),
         ]);
     }
     public function show_portfolio($id)
@@ -29,5 +32,10 @@ class HomeController extends Controller
         return Inertia::render('Portfolio', [
             'portfolio' => $portfolio
         ]);
+    }
+
+    public function contacts()
+    {
+        return Inertia::render('Contacts');
     }
 }
