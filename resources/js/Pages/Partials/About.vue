@@ -31,6 +31,7 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         display: flex;
         flex-direction: column;
         gap: 50px;
+        padding-top: 50px;
     }
     font-size: 20px;
     &__text {
@@ -43,12 +44,14 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         }
     }
     &__v-line {
-        height: 3px;
+        height: 10px;
         background-color: #F0BF6C;
         position: relative;
-        top: 15px;
+        top: 10px;
         right: 10px;
-        min-width: 100px;
+        border-radius: 50%;
+        min-width: 10px;
+        box-shadow: rgba(255, 222, 32, 0.25) 0px 0px 13px 3px, rgb(187 134 2 / 30%) -1px -2px 60px 20px;
     }
 }
 </style>

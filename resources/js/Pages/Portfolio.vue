@@ -102,6 +102,7 @@ defineProps({
         display: flex;
         flex-direction: column;
         gap: 50px;
+        padding-top: 50px;
     }
     h2 {
         margin-bottom: 25px;

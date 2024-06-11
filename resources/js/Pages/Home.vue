@@ -23,6 +23,7 @@
 import { ref, defineProps } from 'vue';
 
 import ApplicationHeader from '@/Components/ApplicationHeader.vue';
+import ApplicationFooter from '@/Components/ApplicationFooter.vue';
 import About from './Partials/About.vue';
 import Skills from './Partials/Skills.vue';
 import Expirience from './Partials/Experience.vue';
@@ -48,7 +49,6 @@ const openPortfolio = (id) => {
 </script>
 
 <style lang="scss">
-@import '@styles/Components/_header.scss';
 
 .pf-cards {
     display: flex;

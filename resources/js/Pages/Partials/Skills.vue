@@ -2,9 +2,7 @@
     <section class="pf-skills pf-section">
         <div class="container">
             <div class="pf-skills__body">
-                
                 <BorderHeader>My Skills</BorderHeader>
-
                 <div class="pf-skills__cards">
                     <div 
                     class="pf-skills__card" 

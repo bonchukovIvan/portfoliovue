@@ -10,6 +10,8 @@
                     </div>
                     <h1>Bonchukov Ivan</h1>
                     <h2>Junior web developer</h2>
+                    <div class="hr-orange hr-left"></div>
+                    <div class="hr-orange hr-right"></div>
                 </div>
 
                 <div class="pf-contacts__info">
@@ -60,10 +62,40 @@ import BorderHeader from '@/Components/BorderHeader.vue';
 </script>
 
 <style lang="scss" scoped>
+.hr {
+    &-orange {
+        position: absolute;
+        background-color: #FFD871;
+        height: 2px;
+        width: 450px;
+        top: 450px;
+        z-index: 998;
+        box-shadow: rgba(255, 222, 32, 0.25) 0px 0px 13px 3px, rgb(187 134 2 / 30%) -1px -2px 60px 20px;
+    }
+    &-left {
+        left: 0;
+    }
+    &-right {
+        right: 0;
+    }
+    &-back {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        background-color: #3f3e3c;
+        bottom: 160px;
+        left: 0;
+        z-index: 9;
+    }
+}
 .pf-contacts {
-    height: 100vh;
+    &__body {
+        padding-top: 50px;
+
+    }
     background-color: #3D3E42;
     &__info {
+        position: relative;
         display: flex;
         flex-wrap: wrap;
         gap: 25px;
@@ -71,6 +103,7 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         > a {
             flex: 27%;
         }
+        z-index: 90;
     }
     &__item {
         display: flex;
@@ -99,6 +132,7 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         }
     }
     &__avatar {
+        z-index: 90;
         &-wrap {
             display: flex;
             flex-direction: column;
@@ -108,11 +142,14 @@ import BorderHeader from '@/Components/BorderHeader.vue';
                 color: #fff;
                 font-weight: bold;
             }
+            
             h1 {
                 font-size: 48px;
+                z-index: 90;
             }
             h2 {
                 font-size: 28px;
+                z-index: 90;
             }
         }
         margin: auto;

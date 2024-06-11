@@ -30,5 +30,47 @@ const contacts_url = route('home.contacts');
 </script>
 
 <style lang="scss">
-@import '@styles/Components/_header.scss';
+.pf-header {
+    position: fixed;
+    background-color: #202124;
+    color: #f7f7f7;
+    border-bottom: 1px solid #f7f7f7;
+    width: 100%;
+    z-index: 999;
+    &__body {
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 0;
+    }
+    &__logo {
+        display: flex;
+        align-items: center;
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+    &__menu {
+        display: flex;
+        align-items: center;
+        ul {
+            display: flex;
+            gap: 50px;
+            li {
+                text-align: center;
+                font-weight: bold;
+            }
+            li:hover a {
+                border-bottom: 3px solid #F0BF6C;
+            }
+        }
+    }
+}
+@media screen and (max-width: 979px) {
+    .pf-header {
+        &__menu {
+            display: none;
+        }
+    }
+}
 </style>
