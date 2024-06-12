@@ -20,7 +20,7 @@
                         <div class="pf-errors__input" v-if="errors.title">{{ errors.title }}</div>
 
                         <label for="description">Description</label>
-                        <input type="text" id="description" v-model="form.description" />
+                        <textarea id="description" v-model="form.description" />
                         <div class="pf-errors__input" v-if="errors.description">{{ errors.description }}</div>
 
                         <label for="site_link">Site link(optional)</label>
