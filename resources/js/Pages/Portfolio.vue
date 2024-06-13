@@ -72,7 +72,6 @@
   
 <script setup>
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-
 import 'vue3-carousel/dist/carousel.css'
 
 import ApplicationHeader from '@/Components/ApplicationHeader.vue';
@@ -96,7 +95,7 @@ defineProps({
     }
 }
 .pf-portfolio {
-    background-color: #3D3E42;
+    background-color: #202124;
     &__body {
         display: flex;
         flex-direction: column;

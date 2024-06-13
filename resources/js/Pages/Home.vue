@@ -2,6 +2,9 @@
   <ApplicationHeader />
 
   <About/>
+  <div class="container" style="position: relative;">
+    <div class="pf__v-line"></div>
+  </div>
 
   <Skills 
   :skills="skills"
@@ -13,7 +16,10 @@
   :openPortfolio="openPortfolio"
   :app_url="app_url"
   />
-  
+  <div class="container" style="position: relative;">
+    <div class="pf__v-line"></div>
+  </div>
+
   <Expirience />
 
   <ApplicationFooter />
@@ -70,16 +76,40 @@ button {
         background-color: #bb8830;
     }
 }
-.pf-gradient__gray {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: #000000d2;
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: 0.3s all;
-    opacity: 0;
-}
+.pf {
+    &-gradient__gray {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #000000d2;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: 0.3s all;
+        opacity: 0;
+    }
+    &__v-line {
+        margin-right: 50px;
+        position: absolute;
+        top: -150px;
+        right: 0;
+        width: 4px;
+        height: 300px;
+        background: rgb(8,8,8);
+        background: linear-gradient(0deg, #202124 0%, #202124 50%, rgba(240,191,108,1) 50%, rgba(240,191,108,1) 100%);
 
+        z-index: 99;
+        border-radius: 3px;
+        &::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 50%; /* Half of the original height */
+            top: 0;
+            left:0;
+            box-shadow: rgba(255, 222, 32, 0.25) 0px 0px 13px 3px, rgb(187 134 2 / 30%) -1px -2px 60px 20px;
+            z-index: -1;
+        }
+    }
+}
 </style>

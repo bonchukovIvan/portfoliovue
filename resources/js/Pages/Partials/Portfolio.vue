@@ -4,7 +4,7 @@
       <div class="pf-portfolio__body">
 
         <BorderHeader>Portfolio</BorderHeader>
-        
+
         <div class="pf-cards pf-portfolio__cards">
           <div class="pf-portfolio__card"        
             v-for="item in portfolio" 
@@ -16,7 +16,6 @@
                   <h5>{{ item.title }}</h5>
                 </div>
                 <div class="pf-portfolio__btn">
-                  <button @click="openPortfolio(item.id)">More information</button>
                 </div>
               </div>
               <div class="pf-portfolio__img">
@@ -28,7 +27,11 @@
                 >
               </div>
             </div>
-            <div class="pf-gradient__gray"></div>
+            
+            <a :href="route('home.portfolio', item.id)">
+              <div class="pf-gradient__gray"></div>
+            </a>
+
           </div>
         </div>
 
@@ -99,7 +102,6 @@ defineProps({
     &__img {
         width: 100%;
         height: 400px;
-        // width: 200px;
         img {
           object-fit: cover;
           min-width: 100%;
