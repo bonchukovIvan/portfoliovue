@@ -98,7 +98,8 @@ defineProps({
     }
     &__img {
         width: 100%;
-        height: 500px;
+        height: 400px;
+        // width: 200px;
         img {
           object-fit: cover;
           min-width: 100%;

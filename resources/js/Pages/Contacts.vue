@@ -93,7 +93,7 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         padding-top: 50px;
 
     }
-    background-color: #3D3E42;
+    background-color: #202124;
     &__info {
         position: relative;
         display: flex;

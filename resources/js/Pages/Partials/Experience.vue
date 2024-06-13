@@ -82,6 +82,10 @@ import BorderHeader from '@/Components/BorderHeader.vue';
         &-title {
             font-weight: bold;
             font-size: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 15px;
             h4 {
                 font-size: 16px;
                 
