@@ -2,39 +2,35 @@
   <section class="pf-section pf-portfolio">
     <div class="container">
       <div class="pf-portfolio__body">
-
         <BorderHeader>Portfolio</BorderHeader>
-
+        
         <div class="pf-cards pf-portfolio__cards">
-          <div class="pf-portfolio__card"        
+
+          <div 
+            class="pf-portfolio__card"        
             v-for="item in portfolio" 
             :key="item.id"
           >
+          <a :href="route('home.portfolio', item.id)">
             <div class="pf-portfolio__card-body">
               <div class="pf-portfolio__more">
                 <div class="pf-portfolio__title">
                   <h5>{{ item.title }}</h5>
                 </div>
-                <div class="pf-portfolio__btn">
-                </div>
               </div>
               <div class="pf-portfolio__img">
                 <img 
-                  :src="app_url+item.preview_path"
+                  :src="app_url + item.preview_path"
                   :alt="item.title"
                   width="150" 
                   height="150"
-                >
+                />
               </div>
             </div>
-            
-            <a :href="route('home.portfolio', item.id)">
-              <div class="pf-gradient__gray"></div>
-            </a>
-
+            <div class="pf-gradient__gray"></div>
+          </a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -109,5 +105,4 @@ defineProps({
         }
     }
 }
-
 </style>

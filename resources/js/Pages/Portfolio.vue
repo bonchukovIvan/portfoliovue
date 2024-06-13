@@ -43,8 +43,11 @@
                 </div>
                 <div class="pf-portfolio__description">
                     <p>
-                        {{ portfolio.description }}
+                        <p v-html="formattedDescription"></p>
                     </p>
+                </div>
+                <div class="container" style="position: relative;">
+                    <div class="pf__v-line"></div>
                 </div>
             </div>
         </div>
@@ -71,6 +74,7 @@
 </template>
   
 <script setup>
+import { computed } from 'vue';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
@@ -79,11 +83,14 @@ import ApplicationFooter from '@/Components/ApplicationFooter.vue';
 import BorderHeader from '@/Components/BorderHeader.vue';
 
 const app_url = import.meta.env.VITE_APP_URL;
-defineProps({
+const props = defineProps({
     portfolio: {
         type: Array,
         default: () => [],
     }
+});
+const formattedDescription = computed(() => {
+    return props.portfolio.description ? props.portfolio.description.replace(/\n/g, '<br>') : '';
 });
 </script>
 
@@ -95,6 +102,7 @@ defineProps({
     }
 }
 .pf-portfolio {
+    padding: 150px 0 0px;
     background-color: #202124;
     &__body {
         display: flex;
@@ -108,10 +116,12 @@ defineProps({
     }
     &__gallery {
         background-color: #ffffff;
-        padding: 25px;
+        padding: 25px 0 0 0;
         font-size: 32px;
         text-transform: uppercase;
         text-align: center;
+        position: relative;
+        z-index: 800;
         .carousel__item {
             height: 650px;
             img {
@@ -124,17 +134,16 @@ defineProps({
     &__description {
         color: #f7f7f7;
         font-size: 24px;
+        margin-bottom: 20px;
         p {
             text-align: justify;
         }
     }
     &__preview {
         box-shadow: rgba(10, 10, 10, 0.2) 0px 7px 29px 0px;
-        // border-radius: 20px;
         position: relative;
         max-height: 500px;
         img {
-            // border-radius: 20px;
             object-fit: cover;
             max-height: 500px;
             width: 100%;
@@ -147,7 +156,6 @@ defineProps({
         display: flex;
         justify-content: space-around;
         align-items: center;
-
         z-index: 99;
         width: 100%;
         height: 100%;
@@ -191,7 +199,6 @@ defineProps({
 }
 .pf-gradient__gray {
     &--single {
-        // border-radius: 20px;
         display: block;
         width: 100%;
         height: 100%;
@@ -201,6 +208,30 @@ defineProps({
         top: 0;
         transition: 0.3s all;
         opacity: 100%;
+    }
+}
+.pf {
+    &-gradient__gray {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #000000d2;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: 0.3s all;
+        opacity: 0;
+    }
+    &__v-line {
+        position: absolute;
+        top: -100px;
+        right: 100px;
+        text-align: center;
+        width: 200px;
+        height: 200px;
+        background: rgb(230, 176, 84);
+        z-index: 99;
+        border-radius: 50%;
     }
 }
 </style>

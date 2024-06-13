@@ -105,7 +105,7 @@
 
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, computed } from 'vue';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Modal from '@/Components/Modal.vue';
@@ -138,6 +138,11 @@ const editForm = useForm({
     git_link: null,
     images: null,
     preview_path: null,
+});
+
+// computed property to format description with line breaks
+const formattedDescription = computed(() => {
+    return form.description ? form.description.replace(/\n/g, '<br>') : '';
 });
 
 const urls = ref([]);

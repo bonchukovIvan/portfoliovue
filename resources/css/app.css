@@ -19,3 +19,9 @@
     padding: 150px 0;
     background-color: #202124;
 }  
+
+textarea {
+    max-height: 130px;
+    max-width: 500px;
+    min-height: 150px;
+  }

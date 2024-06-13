@@ -35,9 +35,7 @@ import Skills from './Partials/Skills.vue';
 import Expirience from './Partials/Experience.vue';
 import Portfolio from './Partials/Portfolio.vue';
 
-
 const app_url = import.meta.env.VITE_APP_URL;
-const isOpenModal = ref(false);
 defineProps({
     skills: {
         type: Array,
@@ -49,6 +47,7 @@ defineProps({
     },
     contacts_url: String,
 });
+
 const openPortfolio = (id) => {
   window.open(`/portfolio/${id}`, '_blank');
 }
